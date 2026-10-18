@@ -21,3 +21,15 @@ npm run test:run   # unit and component tests
 ## Styling
 
 Everything is styled from `src/assets/main.css`. It resets Tailwind's default palette, radii and shadows, so only the Ishara tokens exist as utilities (`bg-primary`, `text-ink`, `border-outline`, `rounded-card`, ...). Do not add one-off hex colours in components. The design rules are in `DESIGN/DESIGN.md`.
+
+## Deployment (Vercel)
+
+The app uses history-mode routing (`/translate`, `/about`, `/login`), so the server must serve `index.html` for any path that is not a real file. Otherwise opening or refreshing a page directly returns a 404. `vercel.json` handles this:
+
+```json
+{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+```
+
+Vercel serves real files first (`/assets/*`, `/Videos/*`, `/favicon.svg`) and only applies the rewrite to the rest, so static files are unaffected.
+
+Project settings: Framework preset **Vite**, build command `npm run build`, output directory `dist`, and the root directory set to this folder (`Frontend/Ishara-Frontend`) if the repository root is higher up.
