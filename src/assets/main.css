@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/600.css";
+@import "@fontsource/roboto/700.css";
+
+/*
+ * Ishara design tokens — "Oat & Olive" (see DESIGN/DESIGN.md).
+ * Resetting the default palette, shadows and radii keeps the app on-system:
+ * only the tokens below exist as utilities (bg-primary, text-ink, border-outline…).
+ */
+@theme {
+  --color-*: initial;
+  --shadow-*: initial;
+  --radius-*: initial;
+
+  /* Primary */
+  --color-primary: #5b6b2e;
+  --color-primary-dark: #4a5725;
+  --color-on-primary: #ffffff;
+
+  /* Secondary */
+  --color-ink: #161616;
+  --color-ink-muted: #5e5b53;
+
+  /* Tertiary */
+  --color-tint: #e6e7d2;
+  --color-tint-stage: #e8e2d3;
+
+  /* Surfaces */
+  --color-surface: #f3eee3;
+  --color-surface-card: #faf8f2;
+  --color-surface-input: #ffffff;
+
+  /* Outlines */
+  --color-outline: #e2dccd;
+  --color-outline-field: #cfc8b8;
+  --color-outline-button: #d6cfbf;
+
+  /* Footer (on primary) */
+  --color-footer-text: #e6ead5;
+  --color-footer-dot: #d9e3b0;
+  --color-footer-rule: rgb(255 255 255 / 0.22);
+
+  /* Live / status */
+  --color-live: #c3d88a;
+  --color-caption-panel: #161616;
+  --color-stage: #26251f; /* camera stage behind the live video */
+
+  /* Reserved accent — small highlights (badges) only, never buttons */
+  --color-accent: #c99a2e;
+
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Shape */
+  --radius-chip: 6px;
+  --radius-control: 8px; /* buttons, inputs */
+  --radius-caption: 12px;
+  --radius-card: 16px; /* cards, forms, panels, hero media */
+  --radius-panel: 36px; /* animation panel */
+
+  /* Type */
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-urdu: "Noto Nastaliq Urdu", serif;
+
+  /* Layout */
+  --container-page: 1280px;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Focus: 2px primary outline, 2px offset. Never removed. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ---------- Typography scale ---------- */
+@utility text-display {
+  font-size: clamp(3.5rem, 8.4vw, 8rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+@utility text-page-title {
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+@utility text-section-title {
+  font-size: clamp(2.5rem, 5.4vw, 5rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+@utility text-item-title {
+  font-size: clamp(1.75rem, 2.4vw, 2rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+@utility text-card-title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+@utility text-lead {
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+@utility text-body {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+@utility text-ui {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+@utility text-small {
+  font-size: 14px;
+  line-height: 1.4;
+}
+@utility text-eyebrow {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--color-primary);
+}
+@utility text-status {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+@utility text-box-title {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+@utility text-stat-title {
+  font-size: clamp(2rem, 4.2vw, 3.75rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+@utility text-gap-word {
+  font-size: clamp(2rem, 3.8vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+@utility text-stat-giant {
+  font-size: clamp(6rem, 13vw, 11rem);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+}
+@utility text-wordmark {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* ---------- Layout ---------- */
+@utility container-page {
+  width: 100%;
+  max-width: var(--container-page);
+  margin-inline: auto;
+  padding-inline: 32px;
+}
+@utility section-y {
+  padding-block: 64px;
+  @media (min-width: 48rem) {
+    padding-block: 96px;
+  }
+  @media (min-width: 80rem) {
+    padding-block: 120px;
+  }
+}
+
+/* ---------- Components ---------- */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    padding-inline: 24px;
+    border-radius: var(--radius-control);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn:hover {
+    opacity: 0.8;
+  }
+  .btn-sm {
+    min-height: 44px;
+    padding-inline: 18px;
+  }
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+  .btn-secondary {
+    border: 1px solid var(--color-ink);
+    color: var(--color-ink);
+    background-color: transparent;
+  }
+  .btn-tertiary {
+    color: var(--color-ink);
+    background-color: transparent;
+  }
+  .btn-on-primary {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+  }
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    border: 1px solid var(--color-outline-button);
+    border-radius: var(--radius-control);
+    background-color: var(--color-surface-input);
+    color: var(--color-ink);
+  }
+
+  .field-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .field {
+    width: 100%;
+    min-height: 50px;
+    padding-inline: 14px;
+    border: 1px solid var(--color-outline-field);
+    border-radius: var(--radius-control);
+    background-color: var(--color-surface-input);
+    color: var(--color-ink);
+    font-size: 16px;
+  }
+
+  .card {
+    border: 1px solid var(--color-outline);
+    border-radius: var(--radius-card);
+    background-color: var(--color-surface-card);
+  }
+  .card-form {
+    padding: 36px;
+  }
+
+  .link {
+    color: var(--color-primary-dark);
+    font-weight: 500;
+  }
+  .link:hover {
+    opacity: 0.8;
+  }
+}
